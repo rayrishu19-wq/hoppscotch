@@ -58,7 +58,11 @@ const copyIcon = refAutoReset<typeof IconCopy | typeof IconCheck>(
 )
 
 const copyHeaders = () => {
-  copyToClipboard(JSON.stringify(props.modelValue))
+  const headersString = props.modelValue
+    .map((header) => `${header.key}: ${header.value}`)
+    .join("\n")
+
+  copyToClipboard(headersString)
   copyIcon.value = IconCheck
   toast.success(`${t("state.copied_to_clipboard")}`)
 }
